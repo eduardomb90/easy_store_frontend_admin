@@ -1,0 +1,175 @@
+<app-navbar></app-navbar>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12 text-center">
+      <h3>Gerenciar de Pedidos</h3>
+    </div>
+  </div>
+
+  <div class="row mb-3">
+    <div class="col-12 text-start">
+      <i class="fa fa-filter" (click)="toggleFiltros()" style="cursor: pointer;"></i>
+    </div>
+  </div>
+
+  <div class="row d-flex justify-content-center divFiltro" *ngIf="filtrosVisiveis">
+    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 d-flex justify-content-center">
+      <div class="form-group text-center">
+        <label for="dataIni">Início</label>
+        <input type="date" class="form-control input-sm" [(ngModel)]="filtroPedido.dataInicio" id="dataIni">
+      </div>
+      <div class="form-group text-center">
+        <label for="dataFim">Fim</label>
+        <input type="date" class="form-control input-sm" [(ngModel)]="filtroPedido.dataFim" id="dataFim">
+      </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+      <div class="form-group text-center">
+        <label for="txtNomeCli">Nome do Cliente</label>
+        <input type="text" class="form-control" id="txtNomeCli" [(ngModel)]="filtroPedido.nome">
+      </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-2">
+      <div class="form-group text-center">
+        <label for="checks">Status</label>
+        <div id="checks" class="d-flex justify-content-center">
+          <input type="checkbox" class="btn-check" id="chkPago" autocomplete="off" [(ngModel)]="pago">
+          <label class="btn btn-outline-primary" for="chkPago"><i class="fa-solid fa-dollar-sign"></i></label>
+          <input type="checkbox" class="btn-check" id="chkEntregue" autocomplete="off" [(ngModel)]="entregue">
+          <label class="btn btn-outline-primary" for="chkEntregue"><i class="fa-solid fa-truck"></i></label>
+          <input type="checkbox" class="btn-check" id="chkCancelado" autocomplete="off" [(ngModel)]="cancelado">
+          <label class="btn btn-outline-primary" for="chkCancelado"><i class="fa-regular fa-rectangle-xmark"></i></label>
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-6 col-sm-6 col-md-2 col-lg-2 col-xl-2 mt-4 text-center">
+      <button class="btn btn-primary w-75 btn-filtro" (click)="filtrarPedidos()"><i class="fa-solid fa-magnifying-glass"></i></button>
+      <button class="btn btn-dark btn-filtro w-75" (click)="limparFiltro()"><i class="fa-solid fa-eraser"></i></button>
+    </div>
+  </div>
+
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col"><div class="d-flex justify-content-center">#</div></th>
+        <th scope="col"><div class="d-flex justify-content-center">Detalhes</div></th>
+        <th scope="col"><div class="d-flex justify-content-center">Data</div></th>
+        <th scope="col"><div class="d-flex justify-content-center">Cliente</div></th>
+        <th scope="col"><div class="d-flex justify-content-center">Total</div></th>
+        <th scope="col"><div class="d-flex justify-content-center">Observações</div></th>
+        <th scope="col"><div class="d-flex justify-content-center">Status</div></th>
+      </tr>
+    </thead>
+    <tbody >
+      <tr *ngFor="let pedido of pedidos">
+
+        <td>
+          <div class="d-flex justify-content-center">
+            {{ pedido.idPedido }}
+          </div>
+        </td>
+        <td class="clickable">
+          <div class="d-flex justify-content-center">
+            <i class="fa-solid fa-circle-info" (click)="enviarDetalhes(pedido)"></i>
+          </div>
+        </td>
+        <td>
+          <div class="d-flex justify-content-center">
+            {{ pedido.dataPedido | date: 'dd/MM/yyyy' }}
+          </div>
+        </td>
+        <td>
+          <div class="d-flex justify-content-center">
+            {{ pedido.cliente.nome }}
+          </div>
+        </td>
+        <td align="right">
+          <div class="d-flex justify-content-center">
+            <strong>{{ pedido.valorTotal| currency: 'BRL'}}</strong>
+          </div>
+        </td>
+        <td>
+          <div class="d-flex justify-content-center">
+            {{ pedido.observacoes }}
+          </div>
+        </td>
+        <td>
+          <div class="btn-group d-flex justify-content-center status__group" role="group">
+            <input type="radio" class="btn-check" name="btnradio-{{pedido.idPedido}}"
+              id="btnradio1-{{pedido.idPedido}}" autocomplete="off"
+              (change)="alterarStatus(pedido.idPedido, 1)" [checked]="pedido.status == 1">
+            <label class="btn btn-outline-primary" for="btnradio1-{{pedido.idPedido}}"><i class="fa-solid fa-dollar-sign"></i></label>
+
+            <input type="radio" class="btn-check" name="btnradio-{{pedido.idPedido}}"
+              id="btnradio2-{{pedido.idPedido}}" autocomplete="off"
+              (change)="alterarStatus(pedido.idPedido, 2)" [checked]="pedido.status == 2">
+            <label class="btn btn-outline-primary" for="btnradio2-{{pedido.idPedido}}"><i class="fa-solid fa-truck"></i></label>
+
+            <input type="radio" class="btn-check" name="btnradio-{{pedido.idPedido}}"
+              id="btnradio3-{{pedido.idPedido}}" autocomplete="off"
+              (change)="alterarStatus(pedido.idPedido, 3)" [checked]="pedido.status == 3">
+            <label class="btn btn-outline-primary" for="btnradio3-{{pedido.idPedido}}"><i class="fa-regular fa-rectangle-xmark"></i></label>
+          </div>
+        </td>
+
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!--modal de detalhes-->
+
+<!-- Button trigger modal -->
+<button type="button" id="btnModal" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#detalheModal">
+  Start modal
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="detalheModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Detalhes do Pedido #{{ detalhe.idPedido }}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <h6>{{ detalhe.cliente.nome }}</h6>
+        <hr>
+        <strong>TOTAL:</strong>{{ detalhe.valorTotal | currency: "BRL" }}
+        <p>
+          <strong>Endereço:</strong>
+          {{ detalhe.cliente.logradouro }}, {{ detalhe.cliente.numero }} <br>
+          {{ detalhe.cliente.bairro }} - {{ detalhe.cliente.cidade }} - {{ detalhe.cliente.cep }}
+        </p>
+
+        <hr>
+
+        <h6><strong>Itens:</strong></h6>
+        <table class="table">
+          <thead>
+            <th class="col">Foto</th>
+            <th class="col">Produto</th>
+            <th class="col">Preço</th>
+            <th class="col">Quantidade</th>
+            <th class="col">Total</th>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of detalhe.itensPedido">
+              <td><img src="{{ item.produto.linkFoto }}" alt="imagem do produto" width="50px"></td>
+              <td>{{ item.produto.nome }}</td>
+              <td>{{ item.precoUnitario | currency: "BRL" }}</td>
+              <td>{{ item.qtdeItem }}</td>
+              <td>{{ item.precoTotal | currency: "BRL" }}</td>
+            </tr>
+          </tbody>
+        </table>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--fim do modal-->

@@ -1,0 +1,43 @@
+<app-navbar></app-navbar>
+<div class="container">
+  <div class="row">
+    <div class="col-12 text-center">
+      <h3>Gerenciar Usuários</h3>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12">
+      <button type="button" class="btn btn-primary" routerLink="/editorusuario/new">Adicionar Novo Usuário</button>
+    </div>
+  </div>
+
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th class="col">#</th>
+        <th class="col">Nome</th>
+        <th class="col">Username</th>
+        <th class="col">Email</th>
+        <th class="col">Ativo</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let usuario of usuarios">
+        <td class="col">{{usuario.id}}</td>
+        <td class="col">
+          <a routerLink="/editorusuario/{{ usuario.id }}">
+            {{usuario.nome}}
+          </a>
+        </td>
+        <td class="col">{{usuario.username}}</td>
+        <td class="col">{{usuario.email}}</td>
+        <td class="col">
+          <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" id="chkDestaque" (change)="ativaUsuario(usuario)" [(ngModel)]="usuario.ativo">
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,11 @@
+.clickable {
+  cursor: pointer;
+}
+
+.clickable i {
+  cursor: pointer;
+}
+
+#btnModal{
+  visibility: hidden;
+}

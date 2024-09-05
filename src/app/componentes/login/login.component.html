@@ -1,0 +1,23 @@
+
+<form class="form-signin">
+  <img class="mb-4 logo-center" src="./assets/logo-semfundo.png" alt="" width="120" height="72">
+  <h1 class="h3 mb-3 font-weight-normal text-center">Área Administrativa</h1>
+  <input type="text" id="inputEmail" class="form-control" placeholder="Seu Login" [(ngModel)]="usuario.username" [ngModelOptions]="{standalone:true}" required autofocus>
+  <input type="password" id="inputPassword" class="form-control" placeholder="Senha"  [(ngModel)]="usuario.senha" [ngModelOptions]="{standalone:true}" required>
+  <div class="checkbox mb-3">
+    <label>
+      <input type="checkbox" value="remember-me"> Lembrar-me
+    </label>
+  </div>
+  <button class="btn btn-lg btn-primary btn-block" (click)="autenticar()" >Logar</button>
+</form>
+
+
+<div id="loginToast" class="toast align-items-center text-white bg-primary border-0" role="alert" aria-live="assertive" aria-atomic="true">
+  <div class="d-flex">
+    <div id="toastMessage" class="toast-body">
+      <!-- Mensagem do toast será atualizada pelo TypeScript -->
+    </div>
+    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+  </div>
+</div>

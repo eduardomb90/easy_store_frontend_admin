@@ -1,0 +1,69 @@
+<app-navbar></app-navbar>
+<div class="container">
+  <div class="row">
+    <div class="col-12 text-center">
+      <h3>Relatório de Clientes</h3>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12 text-center">
+      <div class="alphabet-navigation">
+        <button class="nav-arrow" (click)="scrollLeft()">&#8592;</button>
+        <div #alphabetBar class="alphabet-bar">
+          <a routerLink="/clientes" class="letter">TODOS</a>
+
+          <a *ngFor="let letra of alfabeto"
+            [routerLink]="['/clientes']"
+            [queryParams]="{ letra: letra }"
+            (click)="filtrarPorLetra(letra)"
+            class="letter">{{ letra }}</a>
+        </div>
+        <button class="nav-arrow" (click)="scrollRight()">&#8594;</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="row buscaInput">
+    <div class="col-6">
+      <input type="text" name="inputBusca" id="buscaCliente" [(ngModel)]="keyword"
+        class="form-control" placeholder="Digite o nome para busca"
+      >
+    </div>
+    <div class="col-6">
+      <button type="button" id="btnBuscar" class="btn btn-primary" (click)="buscarCliente()">Buscar</button>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Nome</th>
+            <th>Aniversário</th>
+            <th>Email</th>
+            <th>WhatsApp</th>
+            <th>Endereço</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let cliente of clientesFiltrados">
+            <td>{{ cliente.nome }}</td>
+            <td [ngClass]="{'aniversario': cliente.dataNasc | isBirthday}">
+              <span *ngIf="isBrithday(cliente.dataNasc)" ><i class="fa-solid fa-cake-candles"></i></span>
+              {{ cliente.dataNasc | date : 'dd/MM/yyyy' }}
+            </td>
+            <td>{{ cliente.email }}</td>
+            <td>{{ cliente.telefone }}</td>
+            <td>
+              {{ cliente.logradouro }} - {{ cliente.complemento }} <br>
+              {{ cliente.bairro }} - {{ cliente.cidade }} <br>
+              {{ cliente.cep }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

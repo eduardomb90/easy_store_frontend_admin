@@ -1,0 +1,59 @@
+.alphabet-navigation {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.alphabet-bar {
+  display: flex;
+  overflow-x: auto;
+  scrollbar-width: none; /* Firefox */
+  scroll-behavior: smooth;
+}
+
+.alphabet-bar a {
+  padding: 5px 10px;
+  cursor: pointer;
+  text-decoration: none;
+  color: black;
+}
+
+.alphabet-bar::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, and Opera */
+}
+
+.nav-arrow {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.nav-arrow:focus {
+  outline: none;
+}
+
+.letter {
+  display: inline-block;
+  margin: 0 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.letter:hover {
+  background-color: #ddd;
+}
+
+.buscaInput {
+  margin: 20px;
+}
+
+.aniversario {
+  font-weight: bold;
+  color: #6b36fb;
+}

@@ -1,0 +1,27 @@
+<div class="container-fluid ultimos__pedidos">
+  <div class="mt-4">
+    <h4>Últimos Pedidos</h4>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Data</th>
+          <th>Cliente</th>
+          <th>Total R$</th>
+          <th>Observações</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let pedido of pedidos">
+          <td>{{ pedido.idPedido }}</td>
+          <td>{{ pedido.dataPedido | date: 'dd/MM/yyyy' }}</td>
+          <td>{{ pedido.cliente.nome }}</td>
+          <td>{{ pedido.valorTotal | currency: 'BRL' }}</td>
+          <td>{{ pedido.observacoes }}</td>
+          <td>{{ pedido.status }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,96 @@
+<app-navbar></app-navbar>
+<div class="container">
+  <div class="row">
+    <div class="col-12 text-center">
+      <h3 class="text-center">Editor de Produtos</h3>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="mode == 0">
+    <div class="col-12">
+      <p>Inserindo nova categoria.</p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12">
+      <div class="form-group">
+        <label for="txtNomeProduto">Nome do Produto</label>
+        <input type="text" class="form-control" id="txtNomeProduto" [(ngModel)]="produto.nome">
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12">
+      <div class="form-group">
+        <label for="txtDetalheProduto">Detalhes</label>
+        <input type="text" class="form-control" id="txtDetalheProduto" [(ngModel)]="produto.detalhe">
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12">
+      <div class="form-group">
+        <label for="txtCategoria">Categoria</label>
+        <select id="txtCategoria" class="form-control" [(ngModel)]="produto.categoria.id">
+          <option *ngFor="let item of listaCategoria" [value]="item.id">{{ item.nome }}</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-4">
+      <div class="form-group">
+        <label for="txtPrecoProduto">Preço</label>
+        <input type="text" class="form-control" id="txtPrecoProduto" [(ngModel)]="produto.preco">
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-4">
+      <div class="form-group">
+        <label for="chkDisponivelProduto">Disponível</label>
+        <input type="checkbox" id="chkDisponivelProduto" [(ngModel)]="disponivel">
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-4">
+      <div class="input-group mb-3">
+        <label for="chkDestaqueProduto">Em Destaque</label>
+        <input type="checkbox" id="chkDestaqueProduto" [(ngModel)]="destaque">
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="input-group mb-3">
+      <label class="input-group-text" for="inputImage">Escolher imagem</label>
+      <input type="file" class="form-control" id="inputImage" (change)="onFileSelected($event)">
+      <button type="button" class="btn btn-primary" (click)="uploadFoto()">Enviar</button>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12" >
+       <img *ngIf="produto.linkFoto; else foto" src="{{produto.linkFoto}}" style="height: 200px;">
+    </div>
+
+    <ng-template #foto>Foto do produto</ng-template>
+  </div>
+
+  <div class="row text-center">
+    <div class="col-4">
+      <button class="btn btn-primary" (click)="inserirProduto()">Atualizar dados</button>
+    </div>
+    <div class="col-4">
+      <button class="btn btn-secondary" routerLink="/produtos">Voltar</button>
+    </div>
+  </div>
+</div>
+
